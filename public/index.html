@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="vishnu.js"></script>
+</head>
+<body>
+    <h1>
+        Example Vishnu Client
+    </h1>
+    <button id="login">
+        Login with Roo
+    </button>
+    <script>
+        const loginButton = document.querySelector("#login");
+        const vishnu = new Vishnu({
+            backend : "http://localhost:3000/send",
+            returnlink : "http://localhost:3000/redirect",
+        });
+
+        loginButton.addEventListener("click", async function(e) {
+            try {
+                const link = await vishnu.getLink();
+                window.location.href = link;
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+    </script>
+</body>
