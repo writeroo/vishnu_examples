@@ -7,11 +7,26 @@
     <h1>
         Example Vishnu Client
     </h1>
+    <div>
+        <p>
+            <strong>
+                Status:
+            </strong>
+            <span id="status">
+                Loading...
+            </span>
+        </p>
+    </div>
+    <button id="clear" style="display: none;">
+        Logout
+    </button>
     <button id="login">
         Login with Roo
     </button>
     <script>
         const loginButton = document.querySelector("#login");
+
+        // Configure Vishnu
         const vishnu = new Vishnu({
             backend : "http://localhost:3000/send",
             returnlink : "http://localhost:3000/redirect",
@@ -19,11 +34,28 @@
 
         loginButton.addEventListener("click", async function(e) {
             try {
+                // Get login link
                 const link = await vishnu.getLink();
                 window.location.href = link;
             } catch (error) {
                 console.log(error);
             }
+        });
+
+        // Check if user is logged in
+        const localData = JSON.parse(localStorage.getItem("vishnu") || "{}");
+
+        if(localData.username){
+            document.querySelector("#status").innerText = "Logged in as " + localData.username;
+            document.querySelector("#clear").style.display = "inline";
+        }else{
+            document.querySelector("#status").innerText = "Not logged in";
+        }
+
+        // Clear local storage
+        document.getElementById("clear").addEventListener("click", function(e) {
+            localStorage.removeItem("vishnu");
+            document.getElementById("status").innerText = "Not logged in";
         });
 
     </script>

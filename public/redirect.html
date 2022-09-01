@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="vishnu.js"></script>
+</head>
+<body>
+    <h1>
+        Redirecting...
+    </h1>
+    <script>
+        
+        //get conf from url params
+        const urlParams = new URLSearchParams(window.location.search);
+        const conf = urlParams.get("conf");
+        
+        //get user data from api
+        fetch("http://localhost:3000/user?conf=" + conf).then(data => data.json()).then(data => {
+            //save user data to local storage
+            localStorage.setItem("vishnu", JSON.stringify(data));
+            //redirect to index
+            window.location.href = "http://localhost:3000";
+        });
+
+    </script>
+</body>
