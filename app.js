@@ -6,7 +6,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const app = express()
 const port = 3000
 
-const API_KEY = "0f1017a4350a4b4033fd0cc886aee0192cb75b90289c27e49b725c152d934547" // replace with your API key. We recommend using an environment variable.
+const API_KEY = "[YOUR_API_KEY]" // replace with your API key. We recommend using an environment variable.
 
 app.use(cors())
 
